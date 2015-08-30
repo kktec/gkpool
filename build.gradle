@@ -1,0 +1,95 @@
+buildscript {
+    ext {
+        grailsVersion = project.grailsVersion
+        assetPipelineGradleVersion = "2.3.8"
+        assetPipelineGrailsVersion = "3.0.4"
+        assetPipelineLessVersion = "2.3.0"
+    }
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url "https://repo.grails.org/grails/core" }
+    }
+    dependencies {
+        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:$assetPipelineGradleVersion"
+        classpath "com.bertramlabs.plugins:less-asset-pipeline:$assetPipelineLessVersion"
+    }
+}
+
+plugins {
+    id "io.spring.dependency-management" version "0.5.2.RELEASE"
+    id 'codenarc'
+}
+
+version "0.1"
+group "gkpool"
+
+apply plugin: "spring-boot"
+apply plugin: "war"
+apply plugin: "asset-pipeline"
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: "org.grails.grails-web"
+apply plugin: "org.grails.grails-gsp"
+
+ext {
+    grailsVersion = project.grailsVersion
+    gradleWrapperVersion = project.gradleWrapperVersion
+    seleniumVersion = "2.46.0"
+}
+
+assets {
+    minifyJs = true
+    minifyCss = true
+    excludes = ["**/*.less"]
+}
+
+codenarc {
+    toolVersion = '0.24.1'
+    configFile = file('codenarc/rules.groovy')
+}
+
+repositories {
+    mavenLocal()
+    maven { url "https://repo.grails.org/grails/core" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.grails:grails-bom:$grailsVersion"
+    }
+    applyMavenExclusions false
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-logging"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-autoconfigure"
+    compile "org.springframework.boot:spring-boot-starter-tomcat"
+    compile "org.grails:grails-dependencies"
+    compile "org.grails:grails-web-boot"
+
+    compile "org.grails.plugins:hibernate"
+    compile "org.grails.plugins:cache"
+    compile "org.hibernate:hibernate-ehcache"
+    compile "org.grails.plugins:scaffolding"
+
+    runtime "org.grails.plugins:asset-pipeline:$assetPipelineGrailsVersion"
+    runtime "com.bertramlabs.plugins:less-asset-pipeline:$assetPipelineLessVersion"
+
+
+    testCompile "org.grails:grails-plugin-testing"
+    testCompile "org.grails.plugins:geb"
+
+    // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
+    testCompile "org.seleniumhq.selenium:selenium-htmlunit-driver:$seleniumVersion"
+
+    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+    console "org.grails:grails-console"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = gradleWrapperVersion
+}

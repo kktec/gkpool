@@ -1,0 +1,20 @@
+.gradle
+build
+
+### IDEA Files
+.idea
+*.iml
+*.ipr
+*.iws
+out
+
+### Eclipse files
+.classpath
+.project
+.settings
+
+*Db.properties
+*Db.script
+/*DB.*
+/cobertura.ser
+.DS_Store
