@@ -7,9 +7,9 @@
 * You're free to add application-wide styles to this file and they'll appear at the top of the
 * compiled file, but it's generally better to create a new file per style scope.
 *
-*= require_tree bootstrap-3.3.5/css
+*= require bootstrap-3.3.5/less/bootstrap.less
 *= require_tree bootstrap-3.3.5/fonts
-*= require_tree font-awesome-4.3.0/css
+*= require font-awesome-4.3.0/less/font-awesome.less
 *= require_tree font-awesome-4.3.0/fonts
 *= require gkpool
 *= require_self

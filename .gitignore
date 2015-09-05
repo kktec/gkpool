@@ -1,6 +1,7 @@
 .gradle
 build
 *.log
+/cobertura.ser
 
 ### IDEA Files
 .idea
@@ -13,10 +14,10 @@ out
 .classpath
 .project
 .settings
+/bin
 
+### MAC stuff
 *Db.properties
 *Db.script
 /*DB.*
-/cobertura.ser
 .DS_Store
-/bin
