@@ -1,5 +1,6 @@
 .gradle
 build
+*.log
 
 ### IDEA Files
 .idea
@@ -18,3 +19,4 @@ out
 /*DB.*
 /cobertura.ser
 .DS_Store
+/bin

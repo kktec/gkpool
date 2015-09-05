@@ -20,10 +20,13 @@ buildscript {
 plugins {
     id "io.spring.dependency-management" version "0.5.2.RELEASE"
     id 'codenarc'
+    id 'net.saliman.cobertura' version '2.2.8'
 }
 
 version "0.1"
 group "gkpool"
+
+defaultTasks 'clean', 'build', 'cobertura'
 
 apply plugin: "spring-boot"
 apply plugin: "war"
@@ -48,6 +51,12 @@ assets {
 codenarc {
     toolVersion = '0.24.1'
     configFile = file('codenarc/rules.groovy')
+}
+
+cobertura {
+//    coverageDirs = [project.sourceSets.main.classesDir.path]
+	coverageSourceDirs = [project.sourceSets.main.groovy.srcDirs]
+    coverageExcludes = ['.*Application.*', '.*gsp.*']
 }
 
 repositories {
